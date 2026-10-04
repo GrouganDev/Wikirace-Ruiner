@@ -5,6 +5,8 @@
 #include "../lib/sqlite3.h"
 
 int main() {
+    // Create your database object and feed it the path to your database file
+    // This class will keep track of all internal data for sqlite3 database objects in C++ so lookups are faster
     Database db("../database/my_database.db");
 
     // Example code
@@ -35,8 +37,8 @@ int main() {
     }
 
 
-
-    for (int i = 0; i < 100; ++i) {
+    // Stress test for many queries
+    for (int i = 0; i < 100000; ++i) {
         db.getHotlinkNames("Python (programming language)");
     }
 }
