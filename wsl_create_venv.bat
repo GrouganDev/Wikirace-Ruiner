@@ -1,0 +1,1 @@
+wsl.exe -e bash -lic "source ~/.bashrc && python3 -m venv venv"
