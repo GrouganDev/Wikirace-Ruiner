@@ -27,6 +27,9 @@ std::vector<std::string> split(const std::string& str, char delim) {
 }
 
 
+// Input: the name of a wikipedia article as a string (NOTE, THE CAPITALIZATION MUST MATCH THE WIKIPEDIA TITLE EXACTLY)
+// Returns a vector of strings where each string is the title to a wikipedia article that the input article hotlinks to
+// Will return an empty vector is no hotlinks were found or if the article was not found in the database
 std::vector<std::string> getHotlinkNames(const std::string& name) {
     std::string output = exec(("cd ../ ; venv/bin/python3 src/python/db.py \"" + name + "\"").c_str());
     return split(output, '\n');
