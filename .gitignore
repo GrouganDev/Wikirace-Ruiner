@@ -1,3 +1,6 @@
 /.idea
 /venvLinux
 src/python/my_database.db
+src/python/client.py
+src/python/server.py
+/venv

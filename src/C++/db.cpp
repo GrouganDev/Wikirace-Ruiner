@@ -28,7 +28,7 @@ std::vector<std::string> split(const std::string& str, char delim) {
 
 
 std::vector<std::string> getHotlinkNames(const std::string& name) {
-    std::string output = exec(("cd ../ ; venvLinux/bin/python3 src/python/db.py \"" + name + "\"").c_str());
+    std::string output = exec(("cd ../ ; venv/bin/python3 src/python/db.py \"" + name + "\"").c_str());
     return split(output, '\n');
 }
 

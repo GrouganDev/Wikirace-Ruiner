@@ -4,7 +4,7 @@
 #include <vector>
 
 int main() {
-    for (const std::string& s : getHotlinkNames("Python (programming language)")) {
+    for (const std::string& s : getHotlinkNames("Super Mario")) {
         std::cout << s << std::endl;
     }
 }
