@@ -8,15 +8,10 @@ if __name__ == "__main__":
 
     name = sys.argv[1]
 
-    conn.executescript('''
-    PRAGMA journal_mode = WAL
-    ''')
-
     cursor.execute("SELECT link FROM articles WHERE name = ?", (name,))
 
     for row in cursor:
         name2 = row[0]
         print(name2)
 
-    conn.commit()
     conn.close()
