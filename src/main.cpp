@@ -1,10 +1,28 @@
 #include "Database.h"
+#include "Graph.h"
 #include <string>
 #include <iostream>
 #include <vector>
 #include "../lib/sqlite3.h"
+#include <sstream>
+#include <fstream>
 
 int main() {
+    std::cout << "Loading graph from file..." << std::endl;
+
+    Graph g("../datasets/graphdata.bin");
+
+    int rows = g.rows;
+    int cols = g.cols;
+
+    // Print the first 10 connections of the graph
+    for (int i = 0; i < 10; ++i) {
+        std::cout << g.arr[i][0] << " " << g.arr[i][1] << std::endl;
+    }
+
+    std::cout << std::endl;
+
+
     // Create your database object and feed it the path to your database file
     // This class will keep track of all internal data for sqlite3 database objects in C++ so lookups are faster
     Database db("../database/my_database.db");
@@ -38,7 +56,7 @@ int main() {
 
 
     // Stress test for many queries
-    for (int i = 0; i < 100000; ++i) {
+    for (int i = 0; i < 100; ++i) {
         db.getHotlinkNames("Python (programming language)");
     }
 }

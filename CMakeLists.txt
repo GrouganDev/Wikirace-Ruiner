@@ -8,4 +8,6 @@ add_executable(DSA_Project_2
         lib/sqlite3.h
         lib/sqlite3.c
         src/Database.cpp
-        src/Database.h)
+        src/Database.h
+        src/Graph.cpp
+        src/Graph.h)

@@ -4,3 +4,6 @@ database/my_database.db
 src/python/client.py
 src/python/server.py
 /venv
+dataset/enwiki-2013-names.csv
+dataset/enwiki-2013.txt
+dataset/graphdata.bin
