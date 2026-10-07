@@ -10,4 +10,5 @@ add_executable(DSA_Project_2
         src/Database.cpp
         src/Database.h
         src/Graph.cpp
-        src/Graph.h)
+        src/Graph.h
+        src/testcode.cpp)

@@ -10,17 +10,37 @@
 int main() {
     std::cout << "Loading graph from file..." << std::endl;
 
-    Graph g("../datasets/graphdata.bin");
+    // Loading the large dataset with 4206288 nodes (not recommended for performance)
+    /*
+    int rows = 101311613;
+    int cols = 2;
 
-    int rows = g.rows;
-    int cols = g.cols;
+    Graph g("../datasets/graphdata.bin", rows, cols);
+    */
 
-    // Print the first 10 connections of the graph
-    for (int i = 0; i < 10; ++i) {
-        std::cout << g.arr[i][0] << " " << g.arr[i][1] << std::endl;
+
+    // Loading the smaller dataset with first 100000 nodes
+    int rows = 1703505;
+    int cols = 2;
+
+    Graph g("../dataset/graphdata_small.bin", rows, cols);
+
+    // Print out the indexes for all articles that article 17 (The Complete History (album)) links to
+    for (const int num : g[17]) {
+        std::cout << num << " ";
     }
 
-    std::cout << std::endl;
+    std::cout << std::endl << std::endl;
+
+
+
+
+
+
+
+
+
+    std::cout << "Loading database from file..." << std::endl;
 
 
     // Create your database object and feed it the path to your database file
@@ -56,7 +76,7 @@ int main() {
 
 
     // Stress test for many queries
-    for (int i = 0; i < 100; ++i) {
+    for (size_t i = 0; i < 100; ++i) {
         db.getHotlinkNames("Python (programming language)");
     }
 }

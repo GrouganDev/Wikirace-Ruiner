@@ -7,3 +7,6 @@ src/python/server.py
 dataset/enwiki-2013-names.csv
 dataset/enwiki-2013.txt
 dataset/graphdata.bin
+database/wikipedia.db
+dataset/graphdata_small.bin
+src/testcode.cpp
