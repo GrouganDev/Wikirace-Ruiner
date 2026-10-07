@@ -4,9 +4,6 @@ Graph::Graph(const std::string& path, int rows, int cols) {
     this->rows = rows;
     this->cols = cols;
 
-
-
-
     std::ifstream inFile(path, std::ios::binary);
     if (!inFile) {
         return;
@@ -25,18 +22,8 @@ Graph::Graph(const std::string& path, int rows, int cols) {
             map[index] = std::move(std::make_unique<std::unordered_set<int>>());
         }
 
-        /*
-        if (arr[i][1] != index) {
-            map[index] = std::move(set);
-            set = std::make_unique<std::unordered_set<int>>();
-            index = arr[i][1];
-        }
-        */
-
         map[index]->insert(arr[i][1]);
     }
-
-    //map[index] = std::move(set);
 
     delete[] arr;
 }
