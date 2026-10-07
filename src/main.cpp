@@ -34,23 +34,33 @@ int main() {
 
 
 
+    std::cout << "Loading names database from file..." << std::endl;
+
+    // This database maps indices from Graph to the actual names of the articles
+    Database names_db("../database/names.db", "SELECT name FROM names WHERE id = ? LIMIT 1");
+
+    std::cout << "Index 17's actual title: " << names_db[17] << std::endl << std::endl;
 
 
 
 
 
 
-    std::cout << "Loading database from file..." << std::endl;
+
+    // Old Example code for using the largest database file.
+    // Not recommended due to slow retrievals. Use Graph instead.
+    /*
+    std::cout << "Loading large database from file... (this database will likely not be used)" << std::endl;
 
 
     // Create your database object and feed it the path to your database file
     // This class will keep track of all internal data for sqlite3 database objects in C++ so lookups are faster
-    Database db("../database/my_database.db");
+    Database db_large("../database/my_database.db", "SELECT link FROM articles WHERE name = ?");
 
     // Example code
     std::cout << "Super Mario's hotlinks: " << std::endl;
     // "Super Mario" existed as an article back in 2013 (https://en.wikipedia.org/wiki/Super_Mario)
-    for (const std::string& s : db.getHotlinkNames("Super Mario")) {
+    for (const std::string& s : db_large["Super Mario"]) {
         std::cout << s << std::endl;
     }
 
@@ -58,25 +68,26 @@ int main() {
 
     std::cout << "OpenAI's hotlinks: ";
     // This will print nothing since a wikipedia page for OpenAI didn't exist back in 2013
-    for (const std::string& s : db.getHotlinkNames("OpenAI")) {
+    for (const std::string& s : db_large["OpenAI"]) {
         std::cout << s << std::endl;
     }
 
     std::cout << std::endl << std::endl;
 
     // Print all hotlink titles that were found in the python wikipedia page's third hotlinked article
-    std::vector<std::string> python_links = db.getHotlinkNames("Python (programming language)");
+    std::vector<std::string> python_links = db_large["Python (programming language)"];
 
-    std::cout << "Python's third hotlink: " + python_links[2] << std::endl;
+    std::cout << "Python's sixth hotlink: " + python_links[5] << std::endl;
 
-    std::cout << std::endl << python_links[2] + "'s hotlinks: ";
-    for (const std::string& s : db.getHotlinkNames(python_links[2])) {
+    std::cout << std::endl << python_links[5] + "'s hotlinks: " << std::endl;
+    for (const std::string& s : db_large[python_links[5]]) {
         std::cout << s << std::endl;
     }
 
-
     // Stress test for many queries
+    // This method of getting links is not a great idea for large amounts of queries. Use Graph instead for speed.
     for (size_t i = 0; i < 100; ++i) {
-        db.getHotlinkNames("Python (programming language)");
+        db_large["Python (programming language)"];
     }
+    */
 }

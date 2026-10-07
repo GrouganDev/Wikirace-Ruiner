@@ -10,3 +10,4 @@ dataset/graphdata.bin
 database/wikipedia.db
 dataset/graphdata_small.bin
 src/testcode.cpp
+database/names.db
