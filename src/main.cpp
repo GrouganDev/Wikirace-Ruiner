@@ -20,21 +20,20 @@ int main() {
 
 
     // Loading the smaller dataset with first 100000 nodes
+
+    // Original dataset file is formatted like a 2D array
+    // Each line describes how one article connects to another
     int rows = 1703505;
     int cols = 2;
 
     Graph g("../dataset/graphdata_small.bin", rows, cols);
 
-    // Print out the indexes for all articles that article 17 (The Complete History (album)) links to
-    for (const int num : g[17]) {
-        std::cout << num << " ";
-    }
 
-    std::cout << std::endl << std::endl;
+    std::cout << std::endl;
 
 
 
-    std::cout << "Loading names database from file..." << std::endl;
+    std::cout << "Loading names database from file..." << std::endl << std::endl;
 
     // This database maps indices from Graph to the actual names of the articles
     Database names_db("../database/names.db", "SELECT name FROM names WHERE id = ? LIMIT 1");
@@ -42,7 +41,21 @@ int main() {
     std::cout << "Index 17's actual title: " << names_db[17] << std::endl << std::endl;
 
 
+    // Print out the indexes for all articles that article 'index' links to
 
+    int index = 64;
+
+    std::cout << "Getting all connections for " << names_db[index] << ":" << std::endl;
+    if (g[index].empty()) {
+        std::cout << names_db[index] << " has no connections!" << std::endl;
+    }
+    else {
+        for (const int num : g[index]) {
+            std::cout << names_db[num] << std::endl;
+        }
+
+        std::cout << std::endl;
+    }
 
 
 
