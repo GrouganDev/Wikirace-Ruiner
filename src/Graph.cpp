@@ -9,12 +9,10 @@ Graph::Graph(const std::string& path, int rows, int cols) {
         return;
     }
 
-    auto *arr = new int[rows][2];
+    const auto arr = new int[rows][2];
 
     inFile.read(reinterpret_cast<char*>(arr), cols * rows * sizeof(int));
     inFile.close();
-
-    std::unique_ptr<std::unordered_set<int>> set = std::make_unique<std::unordered_set<int>>();
 
     for (int i = 0; i < rows; ++i) {
         int index = arr[i][0];
