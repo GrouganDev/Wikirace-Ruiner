@@ -4,6 +4,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
+#include <queue>
 #include <memory>
 
 #ifndef DSA_PROJECT_2_GRAPH_H
@@ -17,6 +18,8 @@ struct Graph {
     explicit Graph(const std::string& path, int rows, int cols);
 
     std::unordered_set<int>& operator[](int index);
+
+    bool BFS(int start, int target);
 };
 
 

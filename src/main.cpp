@@ -8,7 +8,7 @@
 #include <fstream>
 
 int main() {
-    std::cout << "Loading graph from file..." << std::endl;
+    /* std::cout << "Loading graph from file..." << std::endl;
 
     // Loading the large dataset with 4206288 nodes (not recommended for performance)
     /*
@@ -23,7 +23,7 @@ int main() {
 
     // Original dataset file is formatted like a 2D array
     // Each line describes how one article connects to another
-    int rows = 1703505;
+    /* int rows = 1703505;
     int cols = 2;
 
     Graph g("../dataset/graphdata_small.bin", rows, cols);
@@ -56,4 +56,17 @@ int main() {
 
         std::cout << std::endl;
     }
+    */
+    Graph g("nonexistent.bin", 0, 2);
+
+    g[1].insert(2);
+    g[1].insert(3);
+    g[2].insert(4);
+    g[3].insert(4);
+    g[4].insert(5);
+
+    std::cout << std::boolalpha;
+    std::cout << g.BFS(1, 5) << std::endl; // true
+    std::cout << g.BFS(5, 1) << std::endl; // false
+
 }

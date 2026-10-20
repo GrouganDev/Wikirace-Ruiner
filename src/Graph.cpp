@@ -33,3 +33,29 @@ std::unordered_set<int>& Graph::operator[](const int index) {
     }
     return *map[index];
 }
+
+bool Graph::BFS(int start, int target) {
+    std::queue<int> queue;
+    std::unordered_set<int> visited;
+    visited.insert(start);
+    queue.push(start);
+    while (!queue.empty()) {
+        int v = queue.front();
+        queue.pop();
+
+        if (v == target) {
+            return true;
+
+        }
+        for (int neighbor : (*this)[v]) {
+            if (visited.find(neighbor) == visited.end()) {
+                visited.insert(neighbor);
+                queue.push(neighbor);
+
+            }
+        }
+
+    }
+    return false;
+
+}
