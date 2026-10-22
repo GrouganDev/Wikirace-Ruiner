@@ -16,11 +16,8 @@ Graph::Graph(const std::string& path, int rows, int cols) {
 
     for (int i = 0; i < rows; ++i) {
         int index = arr[i][0];
-        if (map[index] == nullptr) {
-            map[index] = std::move(std::make_unique<std::unordered_set<int>>());
-        }
 
-        map[index]->insert(arr[i][1]);
+        map[index].insert(arr[i][1]);
     }
 
     delete[] arr;
@@ -28,10 +25,7 @@ Graph::Graph(const std::string& path, int rows, int cols) {
 
 // Return reference to an unordered set which contains all indexes that "index" points to
 std::unordered_set<int>& Graph::operator[](const int index) {
-    if (map[index] == nullptr) {
-        map[index] = std::move(std::make_unique<std::unordered_set<int>>());
-    }
-    return *map[index];
+    return map[index];
 }
 
 bool Graph::BFS(int start, int target) {

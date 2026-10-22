@@ -14,7 +14,7 @@
 struct Graph {
     int rows;
     int cols;
-    std::unordered_map<int, std::unique_ptr<std::unordered_set<int>>> map;
+    std::unordered_map<int, std::unordered_set<int>> map;
     explicit Graph(const std::string& path, int rows, int cols);
 
     std::unordered_set<int>& operator[](int index);
