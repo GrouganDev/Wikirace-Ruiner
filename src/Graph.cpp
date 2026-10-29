@@ -1,5 +1,7 @@
 #include "Graph.h"
 
+#include <algorithm>
+
 Graph::Graph(const std::string& path, int rows, int cols) {
     this->rows = rows;
     this->cols = cols;
@@ -28,9 +30,10 @@ std::unordered_set<int>& Graph::operator[](const int index) {
     return map[index];
 }
 
-bool Graph::BFS(int start, int target) {
+std::vector<int> Graph::BFS(int start, int target) {
     std::queue<int> queue;
     std::unordered_set<int> visited;
+    std::unordered_map<int, int> parents;
     visited.insert(start);
     queue.push(start);
     while (!queue.empty()) {
@@ -38,18 +41,33 @@ bool Graph::BFS(int start, int target) {
         queue.pop();
 
         if (v == target) {
-            return true;
+            break;
 
         }
+
+
         for (int neighbor : (*this)[v]) {
             if (visited.find(neighbor) == visited.end()) {
                 visited.insert(neighbor);
                 queue.push(neighbor);
+                parents[neighbor] = v;
 
             }
         }
 
     }
-    return false;
+    if (visited.find(target) == visited.end()) {
+        return {};
+    }
+    std::vector<int> path;
+    int current = target;
+    while (current != start) {
+        path.push_back(current);
+        current = parents[current];
+    }
+    std::reverse(path.begin(), path.end());
+    path.push_back(start);
+    return path;
+
 
 }

@@ -19,7 +19,7 @@ struct Graph {
 
     std::unordered_set<int>& operator[](int index);
 
-    bool BFS(int start, int target);
+    std::vector<int> BFS(int start, int target);
 };
 
 
