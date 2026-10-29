@@ -65,8 +65,9 @@ std::vector<int> Graph::BFS(int start, int target) {
         path.push_back(current);
         current = parents[current];
     }
-    std::reverse(path.begin(), path.end());
     path.push_back(start);
+    std::reverse(path.begin(), path.end());
+
     return path;
 
 
