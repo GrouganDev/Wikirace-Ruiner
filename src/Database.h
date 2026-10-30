@@ -16,6 +16,7 @@
 class Database {
     sqlite3* db = nullptr;
     sqlite3_stmt* stmt = nullptr;
+    std::string stmt_txt;
 public:
     explicit Database(const std::string& path, const char* query);
     bool changeDatabase(const std::string& path);
@@ -24,9 +25,10 @@ public:
 
     // Meant for use with "names.db"
     std::string operator[](int index);
+    int operator[](const std::string& name);
 
     // Meant for use with "my_database.db"
-    std::vector<std::string> operator[](const std::string& name);
+    //std::vector<std::string> operator[](const std::string& name);
 };
 
 

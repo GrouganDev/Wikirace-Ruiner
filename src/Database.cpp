@@ -16,6 +16,8 @@ Database::Database(const std::string &path, const char* query) {
         sqlite3_finalize(stmt);
         stmt = nullptr;
     }
+
+    stmt_txt = query;
 }
 
 bool Database::changeDatabase(const std::string &path) {
@@ -29,6 +31,10 @@ bool Database::changeDatabase(const std::string &path) {
 }
 
 bool Database::changeQuery(const char *query) {
+    if (stmt_txt == query) {
+        return false;
+    }
+
     if (sqlite3_prepare_v2(db, query, -1, &stmt, nullptr) != SQLITE_OK) {
         std::cerr << "COULD NOT PREPARE STATEMENT";
         sqlite3_finalize(stmt);
@@ -36,6 +42,8 @@ bool Database::changeQuery(const char *query) {
 
         return false;
     }
+
+    stmt_txt = query;
 
     return true;
 }
@@ -51,6 +59,8 @@ Database::~Database() {
 }
 
 std::string Database::operator[](const int index) {
+    changeQuery("SELECT name FROM names WHERE id = ? LIMIT 1");
+
     std::vector<std::string> vec;
 
     if (!stmt) {
@@ -78,6 +88,34 @@ std::string Database::operator[](const int index) {
     return "";
 }
 
+int Database::operator[](const std::string& name) {
+    changeQuery("SELECT id FROM names WHERE name = ? COLLATE NOCASE LIMIT 1");
+
+    std::vector<std::string> vec;
+
+    if (!stmt) {
+        return -1;
+    }
+
+    sqlite3_reset(stmt);
+    sqlite3_clear_bindings(stmt);
+
+
+    if (sqlite3_bind_text(stmt, 1, name.c_str(), -1, SQLITE_TRANSIENT) != SQLITE_OK) {
+        std::cerr << "INPUTS NOT BOUND TO QUERY: " << sqlite3_errmsg(sqlite3_db_handle(stmt)) << std::endl;
+        return -1;
+    }
+
+    while (sqlite3_step(stmt)) {
+        int id = sqlite3_column_int(stmt, 0);
+
+        return id;
+    }
+
+    return -1;
+}
+
+/*
 std::vector<std::string> Database::operator[](const std::string &name) {
     std::vector<std::string> result;
 
@@ -102,5 +140,6 @@ std::vector<std::string> Database::operator[](const std::string &name) {
 
     return result;
 }
+*/
 
 

@@ -15,8 +15,9 @@ int main() {
     int rows = 101311613;
     int cols = 2;
 
-    Graph g("../datasets/graphdata.bin", rows, cols);
+    Graph g("../dataset/graphdata.bin", rows, cols);
     */
+
 
 
 
@@ -27,7 +28,7 @@ int main() {
     int rows = 1703505;
     int cols = 2;
 
-    Graph g("../DSA-Project-2/dataset/graphdata_small.bin", rows, cols);
+    Graph g("../dataset/graphdata_small.bin", rows, cols);
     std::cout << "Graph size: " << g.map.size() << std::endl;
 
 
@@ -38,16 +39,19 @@ int main() {
     std::cout << "Loading names database from file..." << std::endl << std::endl;
 
     // This database maps indices from Graph to the actual names of the articles
-    Database names_db("../DSA-Project-2/database/names.db", "SELECT name FROM names WHERE id = ? LIMIT 1");
+    Database names_db("../database/names.db", "SELECT name FROM names WHERE id = ? LIMIT 1");
 
     std::cout << "Index 17's actual title: " << names_db[17] << std::endl << std::endl;
 
+    std::cout << "The Complete History (album)'s actual index: " << names_db["THE complete History (alBum)"] << std::endl << std::endl;
+
 
     // Print out the indexes for all articles that article 'index' links to
-    int start = g.map.begin()->first;
-    int index = *g.map.begin()->second.begin();
+    int start = 94666;
+    int index = 60249;
     std::vector<int> path = g.BFS(start, index);
 
+    /*
     std::cout << "Getting all connections for " << names_db[index] << ":" << std::endl;
     if (g[index].empty()) {
         std::cout << names_db[index] << " has no connections!" << std::endl;
@@ -59,12 +63,13 @@ int main() {
 
         std::cout << std::endl;
     }
+    */
 
     if (path.empty()) {
         std::cout << "No path found :(" << std::endl;
     }
     else {
-        std::cout << "Shortest path: " << std::endl;
+        std::cout << "Shortest path from " << names_db[start] << " to " << names_db[index] << ": " << std::endl;
         for (int i = 0; i < path.size(); ++i) {
             std::cout << names_db[path[i]] << (i == path.size() - 1 ? "" : ", ");
         }
