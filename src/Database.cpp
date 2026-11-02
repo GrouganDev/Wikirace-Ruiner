@@ -32,7 +32,7 @@ bool Database::changeDatabase(const std::string &path) {
 
 bool Database::changeQuery(const char *query) {
     if (stmt_txt == query) {
-        return false;
+        return true;
     }
 
     if (sqlite3_prepare_v2(db, query, -1, &stmt, nullptr) != SQLITE_OK) {
@@ -59,7 +59,9 @@ Database::~Database() {
 }
 
 std::string Database::operator[](const int index) {
-    changeQuery("SELECT name FROM names WHERE id = ? LIMIT 1");
+    if (!changeQuery("SELECT name FROM names WHERE id = ? LIMIT 1")) {
+        return "";
+    }
 
     std::vector<std::string> vec;
 
@@ -89,7 +91,9 @@ std::string Database::operator[](const int index) {
 }
 
 int Database::operator[](const std::string& name) {
-    changeQuery("SELECT id FROM names WHERE name = ? COLLATE NOCASE LIMIT 1");
+    if (!changeQuery("SELECT id FROM names WHERE name = ? COLLATE NOCASE LIMIT 1")) {
+        return -1;
+    }
 
     std::vector<std::string> vec;
 
