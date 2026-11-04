@@ -20,6 +20,7 @@ struct Graph {
     std::unordered_set<int>& operator[](int index);
 
     std::vector<int> BFS(int start, int target);
+    std::vector<int> dij(int start, int target);
 };
 
 

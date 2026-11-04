@@ -72,3 +72,21 @@ std::vector<int> Graph::BFS(int start, int target) {
 
 
 }
+
+std::vector<int> Graph::dij(int start, int target) {
+    std::priority_queue<
+    std::pair<int, int>,
+    std::vector<std::pair<int, int>>,
+    std::greater<std::pair<int, int>>
+    > pq;
+    std::unordered_map<int, int> distances;
+    std::unordered_map<int, int> parents;
+    distances[start] = 0;
+    pq.push({0, start});
+    while (!pq.empty()) {
+        int distance = pq.top().first;
+        int v = pq.top().second;
+
+    }
+    return {};
+}
