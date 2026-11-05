@@ -67,17 +67,16 @@ std::vector<int> Graph::BFS(int start, int target) {
     path.push_back(start);
     std::reverse(path.begin(), path.end());
 
-
-
     return path;
 }
 
 std::vector<int> Graph::dij(int start, int target) {
     Timer timer;
     std::priority_queue<
-    std::pair<int, int>,
-    std::vector<std::pair<int, int>>,
-    std::greater<std::pair<int, int>>> pq;
+        std::pair<int, int>,
+        std::vector<std::pair<int, int>>,
+        std::greater<std::pair<int, int>>> pq;
+
     std::unordered_map<int, int> distances;
     std::unordered_map<int, int> parents;
     std::unordered_set<int> visited;

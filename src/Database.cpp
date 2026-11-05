@@ -119,31 +119,3 @@ int Database::operator[](const std::string& name) {
     return -1;
 }
 
-/*
-std::vector<std::string> Database::operator[](const std::string &name) {
-    std::vector<std::string> result;
-
-    if (!stmt) {
-        return result;
-    }
-
-    sqlite3_reset(stmt);
-    sqlite3_clear_bindings(stmt);
-
-    if (sqlite3_bind_text(stmt, 1, name.c_str(), -1, SQLITE_TRANSIENT) != SQLITE_OK) {
-        std::cerr << "INPUTS NOT BOUND TO QUERY" << std::endl;
-        return result;
-    }
-
-    while (sqlite3_step(stmt) == SQLITE_ROW) {
-        const unsigned char* link = sqlite3_column_text(stmt, 0);
-        if (link) {
-            result.emplace_back(reinterpret_cast<const char*>(link));
-        }
-    }
-
-    return result;
-}
-*/
-
-
