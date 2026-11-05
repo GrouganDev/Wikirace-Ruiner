@@ -1,0 +1,1 @@
+cmake -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="C:/Qt/6.10.3/mingw_64/" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER_TARGET=x86_64-w64-mingw32 -DCMAKE_CXX_COMPILER_TARGET=x86_64-w64-mingw32 && cmake --build build && C:\Qt\6.10.3\mingw_64\bin\windeployqt.exe build\wikirace_ruiner.exe && @echo off && pause

@@ -4,7 +4,7 @@ This is a basic program which searches through a [2013 dataset](https://snap.sta
 
 # Building
 
-So far, build instructions are only for Windows and require Microsoft Visual Studio (MSVC) 2022 to be installed and properly configured to build C/C++ executables. This program also requires Qt, but the build instructions will help with installing the software using 'aqt' instead of needing to go through Qt's official installer and needing to make an account.
+So far, build instructions are only for Windows and requires either Microsoft Visual Studio (MSVC) 2022 or MinGW to be installed and properly configured to build C/C++ executables. This program also requires Qt, but the build instructions will help with installing the software using 'aqt' instead of needing to go through Qt's official installer and needing to make an account.
 
 ### Required Files:
 
@@ -12,11 +12,11 @@ Download both the [names database file](https://drive.google.com/file/d/1WBsT2R-
 
 ### Installing Qt
 
-Go inside the 'gui' folder and run `installQt.bat`. It will install the MSCV 2022_64 version Qt 6.10.3 into `C:/Qt`. This installation is required for the rest of the program to build.
+Go inside the 'gui' folder and run either `installQt_MSVC.bat` or `installQt_MinGW.bat` depending on your preferred compiler. It will install the MSCV 2022_64 version Qt 6.10.3 into `C:/Qt`. This installation is required for the rest of the program to build.
 
 ### Building the executable
 
-Once Qt is installed, run `buildApp.bat`. This script will compile and build the app into a new `build` folder inside `gui` along with deploying it via `windeployqt.exe` to make the app portable.
+Once Qt is installed, run either `buildApp_MSVC.bat` or `buildApp_MinGW.bat` depending on your preferred compiler. This script will compile and build the app into a new `build` folder inside `gui` along with deploying it via `windeployqt.exe` to make the app portable.
 
 
 
