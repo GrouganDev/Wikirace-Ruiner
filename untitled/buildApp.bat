@@ -1,0 +1,1 @@
+cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="C:/Qt/6.10.3/msvc2022_64/" && cmake --build build && C:\Qt\6.10.3\msvc2022_64\bin\windeployqt.exe build\appuntitled.exe && @echo off && pause
