@@ -1,6 +1,24 @@
 #include "Graph.h"
 
 #include <algorithm>
+#include <chrono>
+#include <thread>
+
+
+class Timer {
+public:
+    Timer() : m_start_time(std::chrono::steady_clock::now()) {}
+
+    ~Timer() {
+        auto end_time = std::chrono::steady_clock::now();
+
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - m_start_time).count();
+        std::cout << "Elapsed time: " << elapsed << " ms" << std::endl;
+    }
+
+private:
+    std::chrono::time_point<std::chrono::steady_clock> m_start_time;
+};
 
 Graph::Graph(const std::string& path, int rows, int cols) {
     this->rows = rows;
@@ -31,6 +49,7 @@ std::unordered_set<int>& Graph::operator[](const int index) {
 }
 
 std::vector<int> Graph::BFS(int start, int target) {
+    Timer timer;
     std::queue<int> queue;
     std::unordered_set<int> visited;
     std::unordered_map<int, int> parents;
@@ -68,12 +87,15 @@ std::vector<int> Graph::BFS(int start, int target) {
     path.push_back(start);
     std::reverse(path.begin(), path.end());
 
+
+
     return path;
 
 
 }
 
 std::vector<int> Graph::dij(int start, int target) {
+    Timer timer;
     std::priority_queue<
     std::pair<int, int>,
     std::vector<std::pair<int, int>>,
@@ -86,7 +108,38 @@ std::vector<int> Graph::dij(int start, int target) {
     while (!pq.empty()) {
         int distance = pq.top().first;
         int v = pq.top().second;
+        pq.pop();
+
+        if (distances[v] < distance) {
+            continue;
+        }
+        if (v == target) {
+            break;
+        }
+
+        for (int neighbor : (*this)[v]) {
+            int new_distance = distance+1;
+            if (distances.find(neighbor) == distances.end() || new_distance < distances[neighbor]) {
+                distances[neighbor] = new_distance;
+                parents[neighbor] = v;
+                pq.push({new_distance, neighbor});
+
+            }
+        }
 
     }
-    return {};
+    std::vector<int> path;
+    int current = target;
+
+    while (current != start) {
+        path.push_back(current);
+        current = parents[current];
+    }
+
+    path.push_back(start);
+    std::reverse(path.begin(), path.end());
+
+
+    return path;
 }
+

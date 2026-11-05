@@ -6,8 +6,20 @@
 #include "../lib/sqlite3.h"
 #include <sstream>
 #include <fstream>
+#include <filesystem>
+
 
 int main() {
+    std::cout << "Working directory: "
+          << std::filesystem::current_path() << std::endl;
+
+    std::cout << "Graph exists: "
+              << std::filesystem::exists("../DSA-Project-2/dataset/graphdata_small.bin")
+              << std::endl;
+
+    std::cout << "Database exists: "
+              << std::filesystem::exists("../DSA-Project-2/database/names.db")
+              << std::endl;
      std::cout << "Loading graph from file..." << std::endl;
 
     // Loading the large dataset with 4206288 nodes (not recommended for performance)
@@ -28,7 +40,7 @@ int main() {
     int rows = 1703505;
     int cols = 2;
 
-    Graph g("../dataset/graphdata_small.bin", rows, cols);
+    Graph g("../DSA-Project-2/dataset/graphdata_small.bin", rows, cols);
     std::cout << "Graph size: " << g.map.size() << std::endl;
 
 
@@ -39,7 +51,8 @@ int main() {
     std::cout << "Loading names database from file..." << std::endl << std::endl;
 
     // This database maps indices from Graph to the actual names of the articles
-    Database names_db("../database/names.db", "SELECT name FROM names WHERE id = ? LIMIT 1");
+    Database names_db("../DSA-Project-2/database/names.db",
+                  "SELECT name FROM names WHERE id = ? LIMIT 1");
 
     std::cout << "Index 17's actual title: " << names_db[17] << std::endl << std::endl;
 
@@ -50,6 +63,7 @@ int main() {
     int start = 94666;
     int index = 60249;
     std::vector<int> path = g.BFS(start, index);
+    std::vector<int> path2 = g.dij(start, index);
 
     /*
     std::cout << "Getting all connections for " << names_db[index] << ":" << std::endl;
@@ -69,9 +83,13 @@ int main() {
         std::cout << "No path found :(" << std::endl;
     }
     else {
-        std::cout << "Shortest path from " << names_db[start] << " to " << names_db[index] << ": " << std::endl;
+        std::cout << "Shortest path from " << names_db[start] << " to " << names_db[index] << " in BFS: " << std::endl;
         for (int i = 0; i < path.size(); ++i) {
             std::cout << names_db[path[i]] << (i == path.size() - 1 ? "" : ", ");
+        }
+        std::cout << "Shortest path from" << names_db[start] << " to " << names_db[index] << " in Dijkstra: " << std::endl;
+        for (int i = 0; i < path2.size(); ++i) {
+            std::cout << names_db[path2[i]] << (i == path2.size() - 1 ? "" : ", ");
         }
         std::cout << std::endl;
     }
