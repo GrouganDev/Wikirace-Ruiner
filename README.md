@@ -16,7 +16,7 @@ Go inside the 'gui' folder and run `installQt.bat`. It will install the MSCV 202
 
 ### Building the executable
 
-Once Qt is installed, run `buildApp.bat`. This script will compile and build the app along with deploying it via `windeployqt.exe` to make the app portable.
+Once Qt is installed, run `buildApp.bat`. This script will compile and build the app into a new `build` folder inside `gui` along with deploying it via `windeployqt.exe` to make the app portable.
 
 
 
