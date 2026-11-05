@@ -80,12 +80,16 @@ std::vector<int> Graph::dij(int start, int target) {
     std::greater<std::pair<int, int>>> pq;
     std::unordered_map<int, int> distances;
     std::unordered_map<int, int> parents;
+    std::unordered_set<int> visited;
     distances[start] = 0;
+
     pq.push({0, start});
     while (!pq.empty()) {
         int distance = pq.top().first;
         int v = pq.top().second;
         pq.pop();
+
+        visited.insert(v);
 
         if (distances[v] < distance) {
             continue;
@@ -105,18 +109,16 @@ std::vector<int> Graph::dij(int start, int target) {
         }
 
     }
+
     std::vector<int> path;
     int current = target;
 
-    std::unordered_set<int> visited;
+    if (visited.count(current) == 0) {
+        return path;
+    }
 
     while (current != start) {
-        if (visited.count(current) != 0) {
-            return {};
-        }
-
         path.push_back(current);
-        visited.insert(current);
         current = parents[current];
     }
 
