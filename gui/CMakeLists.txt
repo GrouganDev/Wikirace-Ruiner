@@ -18,14 +18,14 @@ if (EXISTS "${CMAKE_CURRENT_LIST_DIR}/importedcontent/CMakeLists.txt")
     add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/importedcontent)
 endif()
 
-qt_add_executable(appuntitled
+qt_add_executable(wikirace_ruiner
     main.cpp
     ../src/Graph.cpp
     ../src/Timer.cpp
     ../lib/sqlite3.c
 )
 
-qt_add_qml_module(appuntitled
+qt_add_qml_module(wikirace_ruiner
     URI untitled
     QML_FILES
         Main.qml
@@ -37,24 +37,24 @@ qt_add_qml_module(appuntitled
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
-set_target_properties(appuntitled PROPERTIES
-#    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.appuntitled
+set_target_properties(wikirace_ruiner PROPERTIES
+#    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.wikirace_ruiner
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
 
-target_link_libraries(appuntitled
+target_link_libraries(wikirace_ruiner
     PRIVATE Qt6::Quick Qt6::QuickControls2 Qt6::Concurrent
 )
 
-target_include_directories(appuntitled PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-target_compile_definitions(appuntitled PRIVATE
+target_include_directories(wikirace_ruiner PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_definitions(wikirace_ruiner PRIVATE
     WIKIRUINER_DATA_ROOT="${CMAKE_CURRENT_SOURCE_DIR}/.."
 )
 
-install(TARGETS appuntitled
+install(TARGETS wikirace_ruiner
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
