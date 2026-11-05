@@ -1,25 +1,5 @@
 #include "Graph.h"
 
-#include <algorithm>
-#include <chrono>
-#include <thread>
-
-
-class Timer {
-public:
-    Timer() : m_start_time(std::chrono::steady_clock::now()) {}
-
-    ~Timer() {
-        auto end_time = std::chrono::steady_clock::now();
-
-        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - m_start_time).count();
-        std::cout << "Elapsed time: " << elapsed << " ms" << std::endl;
-    }
-
-private:
-    std::chrono::time_point<std::chrono::steady_clock> m_start_time;
-};
-
 Graph::Graph(const std::string& path, int rows, int cols) {
     this->rows = rows;
     this->cols = cols;
@@ -90,8 +70,6 @@ std::vector<int> Graph::BFS(int start, int target) {
 
 
     return path;
-
-
 }
 
 std::vector<int> Graph::dij(int start, int target) {
@@ -99,8 +77,7 @@ std::vector<int> Graph::dij(int start, int target) {
     std::priority_queue<
     std::pair<int, int>,
     std::vector<std::pair<int, int>>,
-    std::greater<std::pair<int, int>>
-    > pq;
+    std::greater<std::pair<int, int>>> pq;
     std::unordered_map<int, int> distances;
     std::unordered_map<int, int> parents;
     distances[start] = 0;
@@ -131,8 +108,15 @@ std::vector<int> Graph::dij(int start, int target) {
     std::vector<int> path;
     int current = target;
 
+    std::unordered_set<int> visited;
+
     while (current != start) {
+        if (visited.count(current) != 0) {
+            return {};
+        }
+
         path.push_back(current);
+        visited.insert(current);
         current = parents[current];
     }
 

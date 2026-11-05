@@ -1,5 +1,6 @@
 #include "Database.h"
 #include "Graph.h"
+#include "Timer.h"
 
 #include <fstream>
 #include <iostream>
@@ -97,17 +98,18 @@ int main(int argc, char* argv[]) {
     while (true) {
         std::string startTitle;
         std::string targetTitle;
-        std::cout << "\nStarting article: ";
-        if (!std::getline(std::cin, startTitle) || startTitle.empty()) {
+        std::cout << "\nStarting article: (enter 'q' to quit)\n";
+        if (!std::getline(std::cin, startTitle) || startTitle.empty() || startTitle == "q") {
             break;
         }
-        std::cout << "Destination article: ";
-        if (!std::getline(std::cin, targetTitle) || targetTitle.empty()) {
+        std::cout << "Destination article: (enter 'q' to quit)\n";
+        if (!std::getline(std::cin, targetTitle) || targetTitle.empty() || targetTitle == "q") {
             break;
         }
 
         const int start = names[startTitle];
         const int target = names[targetTitle];
+
         if (start == -1 || target == -1) {
             if (start == -1) {
                 std::cout << "Article not found: " << startTitle << '\n';

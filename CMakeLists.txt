@@ -12,4 +12,6 @@ add_executable(DSA_Project_2
         src/Database.h
         src/Graph.cpp
         src/Graph.h
+        src/Timer.cpp
+        src/Timer.h
 )
