@@ -23,3 +23,8 @@ Once Qt is installed, run `buildApp.bat`. This script will compile and build the
 ### Unnecessary Extra Files
 
 [Large Dataset/Graph file](https://drive.google.com/file/d/1cvz6xFD6SEfjfP8NitmNrqgDJa8FiXvT/view?usp=sharing)
+
+
+## External Libraries Used
+- [Qt](https://www.qt.io/)
+- [SQLite](https://www.sqlite.org/index.html)
