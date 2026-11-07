@@ -12,7 +12,7 @@ Download both the [names database file](https://drive.google.com/file/d/1WBsT2R-
 
 ### Installing Qt
 
-Go inside the 'gui' folder and run either `installQt_MSVC.bat` or `installQt_MinGW.bat` depending on your preferred compiler. It will install the MSCV 2022_64 version Qt 6.10.3 into `C:/Qt`. This installation is required for the rest of the program to build.
+Go inside the 'gui' folder and run either `installQt_MSVC.bat` or `installQt_MinGW.bat` depending on your preferred compiler. It will install the  version of Qt 6.10.3 that matches your compiler into `C:/Qt`. This installation is required for the rest of the program to build.
 
 ### Building the executable
 
