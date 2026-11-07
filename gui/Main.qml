@@ -264,22 +264,6 @@ ApplicationWindow {
                                             background: Rectangle { color: "white"; radius: 2; border.color: "#d9e4f4" }
                                         }
                                     }
-                                    ColumnLayout {
-                                        Layout.fillWidth: true; Layout.preferredWidth: 170; spacing: 3
-                                        RowLayout {
-                                            Layout.fillWidth: true
-                                            Caption { text: "PAGE LIMIT"; color: "#c4d9ff"; font.bold: true }
-                                            Item { Layout.fillWidth: true }
-                                            Text { text: "UNLIMITED"; font.pixelSize: 9; font.bold: true; color: "#d9e6ff" }
-                                        }
-                                        Item {
-                                            Layout.fillWidth: true; implicitHeight: 41
-                                            Slider { anchors.fill: parent; enabled: false; value: 1; opacity: 0.6 }
-                                            MouseArea { id: limitHover; anchors.fill: parent; hoverEnabled: true }
-                                            ToolTip.visible: limitHover.containsMouse
-                                            ToolTip.text: "Your current algorithms search the loaded graph without a page limit."
-                                        }
-                                    }
                                     ActionButton {
                                         id: findButton
                                         objectName: "findButton"

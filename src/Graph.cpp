@@ -79,6 +79,7 @@ std::vector<int> Graph::dij(int start, int target) {
 
     std::unordered_map<int, int> distances;
     std::unordered_map<int, int> parents;
+
     std::unordered_set<int> visited;
     distances[start] = 0;
 
