@@ -323,8 +323,10 @@ ApplicationWindow {
                                 ScrollBar.horizontal: ScrollBar { policy: ScrollBar.AsNeeded }
                                 Row {
                                     id: routeRow
+                                    objectName: "routeRow"
                                     x: Math.max(0, (pathView.width - width) / 2)
-                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.top: parent.top
+                                    anchors.topMargin: 24
                                     Repeater {
                                         model: backend.route
                                         delegate: Item {

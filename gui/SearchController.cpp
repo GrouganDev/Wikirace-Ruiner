@@ -204,8 +204,16 @@ void SearchController::search(const QString& start, const QString& target, int a
             auto database = openNames(databasePath);
             const int startId = articleId(database.get(), from);
             const int targetId = articleId(database.get(), to);
-            if (!containsArticle(*graph, startId) || !containsArticle(*graph, targetId)) {
-                throw std::runtime_error("One or both articles are outside this graph. Try titles in the smaller dataset.");
+            QStringList missingArticles;
+            if (!containsArticle(*graph, startId)) {
+                missingArticles.append(QString("Starting article \"%1\" is outside the loaded graph.").arg(from));
+            }
+            if (!containsArticle(*graph, targetId)) {
+                missingArticles.append(QString("Destination article \"%1\" is outside the loaded graph.").arg(to));
+            }
+            if (!missingArticles.isEmpty()) {
+                throw std::runtime_error((missingArticles.join('\n') +
+                    "\nTry titles in the smaller dataset.").toStdString());
             }
             QElapsedTimer timer;
             timer.start();

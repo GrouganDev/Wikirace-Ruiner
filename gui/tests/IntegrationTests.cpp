@@ -77,7 +77,18 @@ private slots:
         controller.search("Outside Article", "Alpha Article", 0);
         QTRY_COMPARE_WITH_TIMEOUT(finished.count(), 1, 10000);
         finished.clear();
-        QVERIFY(controller.status().contains("outside this graph"));
+        QVERIFY(controller.status().contains("Starting article \"Outside Article\" is outside the loaded graph."));
+        QVERIFY(!controller.status().contains("Destination article"));
+        controller.search("Alpha Article", "Outside Article", 0);
+        QTRY_COMPARE_WITH_TIMEOUT(finished.count(), 1, 10000);
+        finished.clear();
+        QVERIFY(controller.status().contains("Destination article \"Outside Article\" is outside the loaded graph."));
+        QVERIFY(!controller.status().contains("Starting article"));
+        controller.search("Outside Article", "Zero Article", 0);
+        QTRY_COMPARE_WITH_TIMEOUT(finished.count(), 1, 10000);
+        finished.clear();
+        QVERIFY(controller.status().contains("Starting article \"Outside Article\" is outside the loaded graph."));
+        QVERIFY(controller.status().contains("Destination article \"Zero Article\" is outside the loaded graph."));
         controller.search("   ", "Alpha Article", 0);
         QVERIFY(!controller.busy());
         QVERIFY(controller.status().startsWith("Enter both"));
@@ -117,9 +128,14 @@ private slots:
         QVERIFY(QMetaObject::invokeMethod(button, "clicked"));
         QTRY_VERIFY_WITH_TIMEOUT(controller->route().size() == 4, 10000);
         const QString captures = qEnvironmentVariable("WIKIRUINER_TEST_CAPTURE_DIR");
-        for (const QSize size : {QSize(1440, 980), QSize(1000, 760)}) {
+        for (const QSize size : {QSize(1440, 980), QSize(1000, 760), QSize(1280, 720)}) {
             window->resize(size);
             QTest::qWait(150);
+            auto* row = window->findChild<QQuickItem*>("routeRow");
+            QVERIFY(row);
+            // Circles start 12 pixels below the row and are 45 pixels tall.
+            const qreal circleBottom = row->mapToScene(QPointF(0, 12 + 45)).y();
+            QVERIFY2(circleBottom <= window->height(), "Path circles extend below the visible window");
             const QImage image = window->grabWindow();
             QVERIFY(!image.isNull());
             if (!captures.isEmpty()) {
