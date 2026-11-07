@@ -1,4 +1,4 @@
-/.idea
+*/.idea
 /venvLinux
 database/my_database.db
 src/python/client.py
