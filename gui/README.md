@@ -1,8 +1,6 @@
 # wikiruiner Qt interface
 
-Open this folder's `CMakeLists.txt` in Qt Creator. Select the Desktop Qt 6.10+
-kit, build, select `appuntitled` as the run target, and press Run.
-Qt Quick, Quick Controls 2, Concurrent, and a C/C++ compiler are required.
+Use the build scripts that are supplied in this folder and explained in the root's README.
 
 The app looks for `dataset/graphdata_small.bin` and `database/names.db` in the
 repository root, independently of Qt Creator's working directory. You can point
